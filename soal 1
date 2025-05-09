@@ -1,0 +1,99 @@
+// soal-1/README.md
+
+# UTS Web Client Development - Soal 1
+
+## 📚 Deskripsi Soal
+
+Tugas ini berisi 5 fungsi sederhana yang diimplementasikan menggunakan **TypeScript**:
+- Menghitung luas persegi panjang
+- Menghitung diameter, keliling, dan luas lingkaran
+- Menghitung sudut ketiga segitiga
+- Menghitung selisih hari antara 2 tanggal
+- Mengubah nama menjadi inisial kapital
+
+Repo ini disusun dengan clean code & best practices.
+
+## 📂 Struktur Repo
+```
+soal-1/
+  src/
+    rectangle.ts
+    circle.ts
+    triangle.ts
+    dateDiff.ts
+    initials.ts
+  README.md
+  tsconfig.json
+  package.json
+```
+
+## 🚀 Cara Menjalankan Kode
+
+1. **Install dependencies** (opsional jika ingin compile TypeScript):
+```bash
+npm install -g typescript
+```
+
+2. **Compile semua file TypeScript:**
+```bash
+tsc
+```
+
+3. **Jalankan masing-masing file:**
+```bash
+node dist/rectangle.js
+node dist/circle.js
+node dist/triangle.js
+node dist/dateDiff.js
+node dist/initials.js
+```
+
+Atau bisa langsung gunakan `ts-node` tanpa compile:
+```bash
+npx ts-node src/rectangle.ts
+```
+
+## ✅ Contoh Output
+
+### Area Rectangle
+```
+Area of rectangle: 15
+```
+
+### Circle Properties
+```
+Circle properties: { diameter: 10, circumference: 31.4159, area: 78.5398 }
+```
+
+### Third Angle of Triangle
+```
+Third angle of triangle: 35
+```
+
+### Date Difference
+```
+Difference in days: 2
+```
+
+### Initials
+```
+Initials: JD
+```
+
+---
+
+## 🏅 Best Practices yang digunakan:
+- TypeScript dengan tipe data yang jelas
+- Modularisasi kode (1 file = 1 fungsi)
+- Clean code dengan penamaan yang deskriptif
+- Validasi input untuk fungsi triangle
+
+## 📬 Pengumpulan
+- Repo GitHub ini akan di-submit ke bucket tugas & email dosen.
+
+## 📝 Artikel Medium
+Sudah ditulis dengan judul: **"Best Practices JavaScript & TypeScript untuk Pengembangan Frontend Modern"** (link akan disertakan saat submit).
+
+---
+
+> Dibuat oleh [zidan] untuk UTS Web Client Development 2025 🚀

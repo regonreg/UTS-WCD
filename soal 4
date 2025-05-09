@@ -1,0 +1,111 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useState } from 'react';
+
+// Navbar Component
+function Navbar() {
+  return (
+    <nav className="bg-blue-600 p-4 text-white flex justify-between">
+      <h1 className="text-xl font-bold">WorkoutAja</h1>
+      <div>
+        <Link to="/" className="mr-4 hover:text-yellow-300">Home</Link>
+        <Link to="/contact" className="hover:text-yellow-300">Contact</Link>
+      </div>
+    </nav>
+  );
+}
+
+// Hero Section
+function HeroSection() {
+  return (
+    <section className="text-center py-16 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+      <h2 className="text-4xl font-bold mb-4">Get Fit with the Best Programs</h2>
+      <p className="mb-6">Join our workout plans and reach your goals!</p>
+      <button className="bg-yellow-400 text-black px-6 py-2 rounded hover:bg-yellow-300">Get Started</button>
+    </section>
+  );
+}
+
+// Program Cards
+function ProgramCards() {
+  const programs = [
+    { title: 'Yoga', desc: 'Relax and strengthen your body' },
+    { title: 'Cardio', desc: 'Boost your stamina and heart health' },
+    { title: 'Strength', desc: 'Build muscles and power' }
+  ];
+
+  return (
+    <section className="grid grid-cols-1 md:grid-cols-3 gap-6 p-8">
+      {programs.map((p, i) => (
+        <div key={i} className="bg-white p-6 rounded shadow text-center hover:scale-105 transition">
+          <h3 className="text-2xl font-bold mb-2">{p.title}</h3>
+          <p>{p.desc}</p>
+        </div>
+      ))}
+    </section>
+  );
+}
+
+// Footer
+function Footer() {
+  return (
+    <footer className="text-center p-4 bg-blue-600 text-white mt-10">&copy; 2025 WorkoutAja</footer>
+  );
+}
+
+// Contact Form
+function ContactForm() {
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Thank you, ${form.name}! We got your message.`);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto p-8 bg-white rounded shadow mt-10">
+      <h2 className="text-2xl font-bold mb-4 text-center">Contact Us</h2>
+      <input name="name" onChange={handleChange} value={form.name} placeholder="Your Name" className="w-full p-2 border mb-4" required />
+      <input name="email" onChange={handleChange} value={form.email} type="email" placeholder="Your Email" className="w-full p-2 border mb-4" required />
+      <textarea name="message" onChange={handleChange} value={form.message} placeholder="Your Message" className="w-full p-2 border mb-4" required></textarea>
+      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send</button>
+    </form>
+  );
+}
+
+// Pages
+function HomePage() {
+  return (
+    <>
+      <HeroSection />
+      <ProgramCards />
+    </>
+  );
+}
+
+function ContactPage() {
+  return (
+    <>
+      <ContactForm />
+    </>
+  );
+}
+
+// App
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+      <Footer />
+    </Router>
+  );
+}
+
+export default App;

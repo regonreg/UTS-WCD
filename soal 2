@@ -1,0 +1,132 @@
+# Soal 2: Git Commands + TypeScript Functions
+
+## ✅ Fungsi JavaScript/TypeScript
+
+### 1. Konversi Fahrenheit ke Celsius
+```typescript
+export function fahrenheitToCelsius(f: number): number {
+  return parseFloat(((f - 32) * 5/9).toFixed(2));
+}
+
+console.log("Temperature in Celsius:", fahrenheitToCelsius(100));
+```
+
+### 2. Konversi Centimeter ke Kilometer
+```typescript
+export function cmToKm(cm: number): string {
+  return `${cm / 100000} km`;
+}
+
+console.log("Centimeter to Kilometer:", cmToKm(100000));
+```
+
+### 3. Cek Angka Genap atau Ganjil
+```typescript
+export function isEven(n: number): boolean {
+  return n % 2 === 0;
+}
+
+console.log("1000 is even:", isEven(1000));
+console.log("1001 is even:", isEven(1001));
+```
+
+### 4. Hapus Kemunculan Pertama String
+```typescript
+export function removeFirstOccurrence(str: string, search: string): string {
+  return str.replace(search, '');
+}
+
+console.log(removeFirstOccurrence("Hello world", "ell"));
+```
+
+### 5. Cek Palindrome
+```typescript
+export function isPalindrome(str: string): boolean {
+  const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+  return cleaned === cleaned.split('').reverse().join('');
+}
+
+console.log("madam is palindrome:", isPalindrome("madam"));
+```
+
+---
+
+## ✅ Git Commands & Workflow
+
+### 1. Inisialisasi Git
+```bash
+mkdir soal2_project
+cd soal2_project
+git init
+echo "# Soal 2 Project" > README.md
+git add .
+git commit -m "Initial commit"
+```
+
+### 2. Push ke GitHub
+```bash
+git remote add origin https://github.com/username/soal2_project.git
+git push -u origin master
+```
+
+### 3. Buat Branch Baru
+```bash
+git checkout -b new-feature
+```
+
+### 4. Commit Perubahan di Branch
+```bash
+echo "console.log('New feature')" >> newFeature.ts
+git add .
+git commit -m "Add new feature"
+git push origin new-feature
+```
+
+### 5. Pull Request & Merge
+- Buka GitHub
+- Klik **Compare & Pull Request**
+- Klik **Merge** untuk menggabungkan
+
+---
+
+## ✅ Best Practices yang Diterapkan
+- Modularisasi kode per file
+- Type safety dengan TypeScript
+- Clean code dengan deskriptif naming
+- Git flow: branch, commit, pull request
+
+---
+
+## ✅ Artikel Medium (1000 kata)
+
+**Judul:** "Git Workflow Profesional: Langkah demi Langkah untuk Mahasiswa & Developer"
+
+**Isi artikel:**
+- Pengenalan Git
+- Setup Git repository
+- Commit, staging area, push
+- Branching dan Git Flow Strategy
+- Pull Request dan Merge
+- Workflow Industri (Collaborative Coding)
+
+---
+
+## 📦 Struktur Folder
+```
+soal2_project/
+├── src/
+│   ├── fahrenheitToCelsius.ts
+│   ├── cmToKm.ts
+│   ├── isEven.ts
+│   ├── removeFirstOccurrence.ts
+│   └── isPalindrome.ts
+├── README.md
+└── tsconfig.json
+```
+
+---
+
+## ✅ Selesai!
+- Kode ✅
+- Repo Git ✅
+- Artikel Medium ✅

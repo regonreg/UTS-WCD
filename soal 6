@@ -1,0 +1,132 @@
+src/App.jsx
+import { PokemonProvider } from "./context/PokemonContext";
+import PokemonList from "./components/PokemonList";
+import Header from "./components/Header";
+
+export default function App() {
+  return (
+    <PokemonProvider>
+      <div className="min-h-screen bg-gray-50 p-4">
+        <Header />
+        <PokemonList />
+      </div>
+    </PokemonProvider>
+  );
+}
+
+
+src/context/PokemonContext.jsx
+import { createContext, useReducer, useEffect } from "react";
+
+export const PokemonContext = createContext();
+
+const initialState = {
+  pokemons: [],
+  filter: "",
+  layout: "grid", // grid / list
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "SET_POKEMONS":
+      return { ...state, pokemons: action.payload };
+    case "SET_FILTER":
+      return { ...state, filter: action.payload };
+    case "TOGGLE_LAYOUT":
+      return {
+        ...state,
+        layout: state.layout === "grid" ? "list" : "grid",
+      };
+    default:
+      return state;
+  }
+}
+
+export function PokemonProvider({ children }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  // Load from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("pokemons");
+    if (saved) {
+      dispatch({ type: "SET_POKEMONS", payload: JSON.parse(saved) });
+    } else {
+      fetch("https://pokeapi.co/api/v2/pokemon?limit=20")
+        .then((res) => res.json())
+        .then((data) => {
+          dispatch({ type: "SET_POKEMONS", payload: data.results });
+          localStorage.setItem("pokemons", JSON.stringify(data.results));
+        });
+    }
+  }, []);
+
+  return (
+    <PokemonContext.Provider value={{ state, dispatch }}>
+      {children}
+    </PokemonContext.Provider>
+  );
+}
+
+
+src/components/Header.jsx
+import { useContext } from "react";
+import { PokemonContext } from "../context/PokemonContext";
+
+export default function Header() {
+  const { dispatch, state } = useContext(PokemonContext);
+
+  return (
+    <header className="mb-4 flex justify-between items-center">
+      <h1 className="text-2xl font-bold text-blue-600">Pokemon List</h1>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          placeholder="Filter..."
+          className="border px-2 py-1 rounded"
+          value={state.filter}
+          onChange={(e) =>
+            dispatch({ type: "SET_FILTER", payload: e.target.value })
+          }
+        />
+        <button
+          className="bg-blue-500 text-white px-3 py-1 rounded"
+          onClick={() => dispatch({ type: "TOGGLE_LAYOUT" })}
+        >
+          {state.layout === "grid" ? "List View" : "Grid View"}
+        </button>
+      </div>
+    </header>
+  );
+}
+
+
+src/components/PokemonList.jsx
+import { useContext } from "react";
+import { PokemonContext } from "../context/PokemonContext";
+
+export default function PokemonList() {
+  const { state } = useContext(PokemonContext);
+
+  const filtered = state.pokemons.filter((p) =>
+    p.name.toLowerCase().includes(state.filter.toLowerCase())
+  );
+
+  return (
+    <div
+      className={`${
+        state.layout === "grid"
+          ? "grid grid-cols-2 md:grid-cols-4 gap-4"
+          : "flex flex-col gap-2"
+      }`}
+    >
+      {filtered.map((p) => (
+        <div
+          key={p.name}
+          className="bg-white p-4 rounded shadow hover:bg-blue-50"
+        >
+          <p className="capitalize font-semibold">{p.name}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
